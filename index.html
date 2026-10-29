@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>дом, там где ты</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+* {margin:0;padding:0;box-sizing:border-box}
+body {font-family:'Lora',serif;background:#140c0e;color:#f8f0ed;min-height:100vh;padding:32px 14px 80px}
+.wrap {max-width:420px;margin:0 auto}
+.title {font-family:'Great Vibes',cursive;font-size:2.8rem;text-align:center;color:#f5e6e0;margin-bottom:4px;text-shadow:0 0 30px rgba(196,92,106,.3)}
+.sub {text-align:center;color:#e8a0a8;font-style:italic;margin-bottom:24px;opacity:.85}
+.counter {background:rgba(40,22,26,.9);border:1px solid rgba(196,92,106,.25);border-radius:18px;padding:18px;text-align:center;margin-bottom:28px}
+.counter-label {font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:#d4a574;opacity:.75;margin-bottom:6px}
+.days {font-family:'Great Vibes',cursive;font-size:3.8rem;color:#f5e6e0;line-height:1}
+.days-word {color:#e8a0a8;margin-top:2px}
+.hint {text-align:center;color:#e8a0a8;opacity:.7;font-style:italic;margin-bottom:18px;font-size:.9rem}
+.card {margin-bottom:22px;border-radius:16px;overflow:hidden;background:#1e1215;box-shadow:0 10px 28px rgba(0,0,0,.4)}
+.img-wrap {position:relative}
+.img-wrap img {width:100%;display:block}
+.cover {position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(15,8,10,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .35s ease}
+.cover.hide {opacity:0;pointer-events:none}
+.heart {font-size:2.2rem;color:#e8a0a8;margin-bottom:6px}
+.tap {color:#f5e6e0;font-size:.95rem;letter-spacing:.03em}
+.cap {display:none;padding:14px 12px 16px;text-align:center;font-size:1.08rem;line-height:1.45;color:#f5e6e0;font-style:italic;background:rgba(20,12,14,.9)}
+.cap.show {display:block}
+.long {margin-top:30px;padding:20px 14px;background:rgba(40,22,26,.85);border:1px solid rgba(196,92,106,.2);border-radius:16px;text-align:center;font-style:italic;line-height:1.6;color:#f5e6e0;font-size:1rem}
+.big-heart {text-align:center;font-size:4rem;color:#c45c6a;margin:16px 0 10px}
+.final {text-align:center;color:#e8a0a8;font-style:italic;margin-top:18px;line-height:1.5}
+.footer {text-align:center;margin-top:22px;font-size:.8rem;color:#d4a574;opacity:.55}
+.music {display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:28px;padding:10px 16px;background:rgba(40,22,26,.65);border-radius:40px;border:1px solid rgba(196,92,106,.15)}
+.music-btn {width:40px;height:40px;border-radius:50%;border:none;background:#c45c6a;color:#fff;font-size:15px;cursor:pointer}
+.music-label {font-size:.88rem;color:#e8a0a8;opacity:.85}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 class="title">дом, там где ты</h1>
+  <p class="sub">для моей Лизы</p>
+
+  <div class="counter">
+    <div class="counter-label">мы вместе уже</div>
+    <div class="days" id="days">65</div>
+    <div class="days-word" id="days-word">дней</div>
+  </div>
+
+  <div class="music">
+    <button class="music-btn" id="musicBtn">▶</button>
+    <span class="music-label" id="musicLabel">включить музыку</span>
+  </div>
+
+  <p class="hint">нажми на фото</p>
+
+  <!-- Photos will be loaded from the full version - for now placeholder notice -->
+  <p style="text-align:center;color:#e8a0a8;opacity:0.7;margin:40px 0">Загружаю полную версию с фото...</p>
+
+  <div class="long">
+    Es vēlos izteikt tev milzīgu pateicību par visu, ko tu esi darījusi un joprojām dari man. Godīgi sakot, bez tevis es nebūtu tikusi galā ar šo dzīvi, bet es neesmu viens. Ar tevi es patiesi jūtos, ka neesmu vientuļš. Es tevi ļoti stipri mīlu un ļoti vēlos pavadīt ar tevi vēl vismaz divas dzīves.
+  </div>
+  <div class="big-heart">♥</div>
+  <div class="final">каждый день с тобой —<br>это и есть дом</div>
+  <p class="footer">с 25 августа 2026</p>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="lofi-romantic.mp3" type="audio/mpeg">
+</audio>
+<script>
+(function(){
+  var start = new Date(2026,7,25);
+  function word(n){var a=Math.abs(n)%100,l=a%10;if(a>10&&a<20)return 'дней';if(l===1)return 'день';if(l>=2&&l<=4)return 'дня';return 'дней';}
+  function upd(){var now=new Date();var s=new Date(start.getFullYear(),start.getMonth(),start.getDate());var t=new Date(now.getFullYear(),now.getMonth(),now.getDate());var d=Math.floor((t-s)/86400000);if(d<0)d=0;document.getElementById('days').textContent=d;document.getElementById('days-word').textContent=word(d);}
+  upd();setInterval(upd,60000);
+
+  var audio = document.getElementById('bgMusic');
+  var btn = document.getElementById('musicBtn');
+  var label = document.getElementById('musicLabel');
+  var on = false;
+  btn.addEventListener('click', function(){
+    if(on){audio.pause();btn.textContent='▶';label.textContent='включить музыку';}
+    else{audio.play().catch(function(){});btn.textContent='❚❚';label.textContent='музыка играет';}
+    on=!on;
+  });
+})();
+</script>
+</body>
+</html>
